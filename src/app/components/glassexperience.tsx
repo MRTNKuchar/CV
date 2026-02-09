@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { TypewriterText } from './TypewriterText'
 
 interface Job {
   company: string
@@ -19,13 +18,13 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 }
 
 const slideIn = {
-  hidden: { opacity: 0, x: -40, filter: "blur(4px)" },
-  show: { opacity: 1, x: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const } }
+  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
+  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } }
 }
 
 export function GlassExperience({ jobs }: GlassExperienceProps) {
@@ -46,50 +45,66 @@ export function GlassExperience({ jobs }: GlassExperienceProps) {
         Work Experience
       </motion.h2>
 
-      <div className="space-y-6">
+      <div className="relative space-y-8">
+        {/* Timeline line */}
+        <div className="absolute left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-purple-500/60 via-blue-500/40 to-transparent" />
+
         {jobs.map((job, index) => (
           <motion.div
             key={index}
             variants={slideIn}
-            whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-            className="group bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-colors cursor-pointer"
+            className="relative pl-12"
           >
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors">
-                  {job.position}
-                </h3>
-                <p className="text-blue-300 text-lg">{job.company}</p>
+            {/* Timeline dot */}
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ type: "spring" as const, stiffness: 300, damping: 15, delay: 0.2 + index * 0.1 }}
+              className="absolute left-2.5 top-6 w-3 h-3 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.6)] ring-4 ring-purple-500/20"
+            />
+
+            <div className="bg-white/[0.04] rounded-2xl p-6 border border-white/10 hover:border-purple-500/30 transition-colors duration-500 relative overflow-hidden">
+              {/* Subtle gradient accent */}
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent" />
+
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">
+                    {job.position}
+                  </h3>
+                  <p className="text-blue-300 text-lg">{job.company}</p>
+                </div>
+                <span className="text-sm text-purple-200 bg-purple-500/10 border border-purple-500/20 px-4 py-2 rounded-full">
+                  {job.period}
+                </span>
               </div>
-              <span className="text-sm text-blue-200 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
-                {job.period}
-              </span>
+
+              <p className="text-blue-100/70 mb-4 leading-relaxed">
+                {job.description}
+              </p>
+
+              {job.achievements.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-sm text-purple-300 font-semibold">Key Achievements:</p>
+                  <ul className="space-y-1.5">
+                    {job.achievements.map((achievement, i) => (
+                      <motion.li
+                        key={i}
+                        variants={{
+                          hidden: { opacity: 0, x: -15 },
+                          show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const } }
+                        }}
+                        className="text-blue-100/70 text-sm flex items-start gap-2"
+                      >
+                        <span className="text-purple-400 mt-0.5">&#9670;</span>
+                        <span>{achievement}</span>
+                      </motion.li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-
-            <p className="text-blue-100/80 mb-4 leading-relaxed">
-            {job.description}
-            </p>
-
-            {job.achievements.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-sm text-blue-300 font-semibold">Key Achievements:</p>
-                <ul className="space-y-1">
-                  {job.achievements.map((achievement, i) => (
-                    <motion.li
-                      key={i}
-                      variants={{
-                        hidden: { opacity: 0, x: -15 },
-                        show: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const } }
-                      }}
-                      className="text-blue-100/80 text-sm flex items-start gap-2"
-                    >
-                      <span className="text-purple-400 mt-1">▸</span>
-                      <span>{achievement}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </motion.div>
         ))}
       </div>

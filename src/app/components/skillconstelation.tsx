@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 
 interface Skill {
   name: string
-  level: number
   category: string
 }
 
@@ -56,43 +55,17 @@ export function SkillConstellation({ skills }: SkillConstellationProps) {
             <h3 className="text-xl font-semibold text-purple-300 mb-4">
               {category}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex flex-wrap gap-3">
               {skills
                 .filter(s => s.category === category)
                 .map((skill, index) => (
-                  <motion.div
+                  <motion.span
                     key={index}
                     variants={scaleIn}
-                    whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-                    className="relative bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:border-purple-500/50 transition-colors group"
+                    className="px-4 py-2 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 text-white font-medium"
                   >
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="text-white font-semibold">
-                        {skill.name}
-                      </span>
-                      <span className="text-blue-300 text-sm">
-                        {skill.level}%
-                      </span>
-                    </div>
-
-                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const, delay: 0.3 }}
-                        className="h-full bg-gradient-to-r from-purple-500 to-blue-500 rounded-full relative"
-                      >
-                        <div className="absolute inset-0 bg-white/30 blur-sm"></div>
-                      </motion.div>
-                    </div>
-
-                    <div className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-yellow-300 animate-pulse">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" />
-                      </svg>
-                    </div>
-                  </motion.div>
+                    {skill.name}
+                  </motion.span>
                 ))}
             </div>
           </motion.div>

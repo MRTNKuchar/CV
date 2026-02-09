@@ -34,16 +34,16 @@ export default function Page() {
   ]
 
   const skills = [
-    { name: "React", level: 40, category: "Frontend" },
-    { name: "Git", level: 60, category: "Tools" },
-    { name: "Docker", level: 70, category: "DevOps" },
-    { name: "C#", level: 60, category: "Backend" },
-    { name: "Python", level: 50, category: "Backend" },
-    { name: "Linux", level: 80, category: "Operating Systems" },
-    { name: "Windows", level: 90, category: "Operating Systems" },
-    { name: "Cybersecurity", level: 75, category: "Specialties" },
-    { name: "Web Development", level: 65, category: "Specialties" },
-    { name: "R", level: 30, category: "Backend" }
+    { name: "React", category: "Frontend" },
+    { name: "Git", category: "Tools" },
+    { name: "Docker", category: "DevOps" },
+    { name: "C#", category: "Backend" },
+    { name: "Python", category: "Backend" },
+    { name: "Linux", category: "Operating Systems" },
+    { name: "Windows", category: "Operating Systems" },
+    { name: "Cybersecurity", category: "Specialties" },
+    { name: "Web Development", category: "Specialties" },
+    { name: "R", category: "Backend" }
   ]
 
   const education = [
@@ -51,8 +51,15 @@ export default function Page() {
       school: "University of Jan Evangelista Purkyně",
       degree: "Bachelor's Degree",
       field: "Computer Science",
-      period: "2020 - 2024",
+      period: "2024 - Now",
       description: "Focused on software engineering, cyber security and networking."
+    },
+    {
+      school: "Gymnázium Kadaň",
+      degree: "High School Diploma",
+      field: "General Education",
+      period: "2015 - 2023",
+      description: "Graduated with honors, specializing in computer science and mathematics."
     }
   ]
 
