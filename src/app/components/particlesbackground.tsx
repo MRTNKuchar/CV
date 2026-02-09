@@ -53,41 +53,23 @@ export function ReactiveBackground() {
       }
 
       update() {
-        // Gentle floating drift
-        this.baseX += Math.sin(this.pulse * 0.5) * 0.15
-        this.baseY += Math.cos(this.pulse * 0.3) * 0.1
         this.pulse += this.pulseSpeed
 
-        // Keep base position within bounds
-        if (this.baseX < 0) this.baseX = width
-        if (this.baseX > width) this.baseX = 0
-        if (this.baseY < 0) this.baseY = height
-        if (this.baseY > height) this.baseY = 0
+        // Smooth orbit around base position
+        this.x = this.baseX + Math.sin(this.pulse * 0.5) * 12
+        this.y = this.baseY + Math.cos(this.pulse * 0.3) * 10
 
-        // Calculate distance to mouse
+        // Push away from mouse
         const dx = mouse.x - this.x
         const dy = mouse.y - this.y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
-        // Push away from mouse
         if (distance < mouse.radius) {
           const angle = Math.atan2(dy, dx)
           const force = (mouse.radius - distance) / mouse.radius
-          this.vx -= Math.cos(angle) * force * 2.5
-          this.vy -= Math.sin(angle) * force * 2.5
+          this.x -= Math.cos(angle) * force * 30
+          this.y -= Math.sin(angle) * force * 30
         }
-
-        // Return to base position
-        this.vx += (this.baseX - this.x) * 0.015
-        this.vy += (this.baseY - this.y) * 0.015
-
-        // Apply friction
-        this.vx *= 0.96
-        this.vy *= 0.96
-
-        // Update position
-        this.x += this.vx
-        this.y += this.vy
       }
 
       draw() {

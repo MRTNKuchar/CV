@@ -23,8 +23,8 @@ const container = {
 }
 
 const slideIn = {
-  hidden: { opacity: 0, y: 30, filter: "blur(6px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } }
+  hidden: { opacity: 0, filter: "blur(6px)" },
+  show: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const } }
 }
 
 export function GlassExperience({ jobs }: GlassExperienceProps) {
@@ -56,13 +56,7 @@ export function GlassExperience({ jobs }: GlassExperienceProps) {
             className="relative pl-12"
           >
             {/* Timeline dot */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring" as const, stiffness: 300, damping: 15, delay: 0.2 + index * 0.1 }}
-              className="absolute left-2.5 top-6 w-3 h-3 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.6)] ring-4 ring-purple-500/20"
-            />
+            <div className="absolute left-2.5 top-6 w-3 h-3 rounded-full bg-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.6)] ring-4 ring-purple-500/20" />
 
             <div className="bg-white/[0.04] rounded-2xl p-6 border border-white/10 hover:border-purple-500/30 transition-colors duration-500 relative overflow-hidden">
               {/* Subtle gradient accent */}
