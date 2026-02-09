@@ -38,6 +38,11 @@ export default function Page() {
     { name: "Git", level: 60, category: "Tools" },
     { name: "Docker", level: 70, category: "DevOps" },
     { name: "C#", level: 60, category: "Backend" },
+    { name: "Python", level: 50, category: "Backend" },
+    { name: "Linux", level: 80, category: "Operating Systems" },
+    { name: "Windows", level: 90, category: "Operating Systems" },
+    { name: "Cybersecurity", level: 75, category: "Specialties" },
+    { name: "Web Development", level: 65, category: "Specialties" },
   ]
 
   const education = [
