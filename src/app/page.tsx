@@ -8,17 +8,13 @@ import { CosmicEducation } from './components/cosmiceducation'
 import { FloatingContact } from './components/floatingcontact'
 import { Certifications } from './components/certifications'
 import { Projects } from './components/projects'
-import { FullscreenSection } from './components/FullscreenSection'
-import { FinalView } from './components/finalview'
 import { Footer } from './components/footer'
 import { motion, useScroll, useSpring } from 'framer-motion'
-import { useCallback, useState } from 'react'
 
 export default function Page() {
-  const [finalLocked, setFinalLocked] = useState(false)
-  const handleLock = useCallback(() => setFinalLocked(true), [])
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 })
+
   const jobs = [
     {
       company: "HD Kadaň",
@@ -72,55 +68,9 @@ export default function Page() {
         style={{ scaleX }}
         className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 origin-left z-50"
       />
-      
-      <div className="relative z-10">
-        
-        {!finalLocked && (
-          <>
-            {/* Sekce 1: Hero */}
-            <FullscreenSection index={0}>
-              <HeroHeader
-                name="Martin Kuchař"
-                title="Cybersecurity & Development Enthusiast"
-                tagline="Passionate about internet security, web development, and creating innovative solutions."
-                photo="/profile.jpg"
-              />
-            </FullscreenSection>
 
-            {/* Sekce 2: Experience */}
-            <FullscreenSection index={1}>
-              <GlassExperience jobs={jobs} />
-            </FullscreenSection>
-
-            {/* Sekce 3: Education */}
-            <FullscreenSection index={2}>
-              <CosmicEducation education={education} />
-            </FullscreenSection>
-
-            {/* Sekce 4: Skills */}
-            <FullscreenSection index={3}>
-              <SkillConstellation skills={skills} />
-            </FullscreenSection>
-
-            {/* Sekce 5: Certifications */}
-            <FullscreenSection index={4}>
-              <Certifications />
-            </FullscreenSection>
-
-            {/* Sekce 6: Projects */}
-            <FullscreenSection index={5}>
-              <Projects />
-            </FullscreenSection>
-
-            {/* Sekce 7: Contact */}
-            <FullscreenSection index={6}>
-              <FloatingContact />
-            </FullscreenSection>
-          </>
-        )}
-
-        {/* FINÁLNÍ VIEW - všechno dohromady */}
-        <FinalView onLock={handleLock}>
+      <div className="relative z-10 min-h-screen py-12 px-4">
+        <div className="max-w-7xl mx-auto space-y-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -196,8 +146,7 @@ export default function Page() {
           </div>
 
           <Footer />
-        </FinalView>
-
+        </div>
       </div>
     </>
   )

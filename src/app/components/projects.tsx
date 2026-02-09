@@ -26,9 +26,9 @@ const fadeUp = {
 export function Projects() {
   const projects: Project[] = [
     {
-      name: "WPA3 Penetration Testing",
+      name: "WPA3 adalysis",
       description: "Research and security analysis of WPA3 protocol vulnerabilities and attack vectors.",
-      tags: ["Security", "Wireless", "Pentesting"],
+      tags: ["Security", "Wireless", "Research"],
       status: "active"
     },
     {
