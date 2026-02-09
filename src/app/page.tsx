@@ -43,6 +43,7 @@ export default function Page() {
     { name: "Windows", level: 90, category: "Operating Systems" },
     { name: "Cybersecurity", level: 75, category: "Specialties" },
     { name: "Web Development", level: 65, category: "Specialties" },
+    { name: "R", level: 30, category: "Backend" }
   ]
 
   const education = [
