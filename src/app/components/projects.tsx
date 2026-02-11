@@ -1,14 +1,8 @@
 "use client"
 
 import { motion } from 'framer-motion'
-import { TypewriterText } from './TypewriterText'
-
-interface Project {
-  name: string
-  description: string
-  tags: string[]
-  status: "active" | "completed"
-}
+import { projects } from '@/app/data/projects'
+import Link from 'next/link'
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,29 +18,9 @@ const fadeUp = {
 }
 
 export function Projects() {
-  const projects: Project[] = [
-    {
-      name: "WPA3 adalysis",
-      description: "Research and security analysis of WPA3 protocol vulnerabilities and attack vectors.",
-      tags: ["Security", "Wireless", "Research"],
-      status: "active"
-    },
-    {
-      name: "AI Intracranial Pressure Model",
-      description: "Hackathon project — AI model for processing and predicting intracranial pressure data.",
-      tags: ["AI", "Healthcare", "Hackathon"],
-      status: "completed"
-    },
-    {
-      name: "Network Monitoring Lab",
-      description: "Full monitoring stack on Proxmox — Zabbix, Graylog, Wazuh, LibreNMS, and Flowmon integrated together.",
-      tags: ["Proxmox", "Zabbix", "Graylog", "Wazuh", "LibreNMS", "Flowmon"],
-      status: "completed"
-    },
-  ]
-
   return (
     <motion.div
+      id="projects"
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -64,40 +38,51 @@ export function Projects() {
 
       <div className="space-y-5">
         {projects.map((project, index) => (
-          <motion.div
-            key={index}
-            variants={fadeUp}
-            whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-            className="group bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-colors"
-          >
-            <div className="flex items-start justify-between mb-3">
-              <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
-                {project.name}
-              </h3>
-              <span className={`text-xs px-3 py-1 rounded-full font-medium ${
-                project.status === "active"
-                  ? "bg-green-500/20 text-green-300 border border-green-500/30"
-                  : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-              }`}>
-                {project.status === "active" ? "In Progress" : "Completed"}
-              </span>
-            </div>
+          <Link key={index} href={`/projects/${project.slug}`}>
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="group bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-purple-500/50 transition-colors cursor-pointer mb-5"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <h3 className="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
+                  {project.name}
+                </h3>
+                <div className="flex items-center gap-2">
+                  <span className={`text-xs px-3 py-1 rounded-full font-medium ${
+                    project.status === "active"
+                      ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                      : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                  }`}>
+                    {project.status === "active" ? "In Progress" : "Completed"}
+                  </span>
+                </div>
+              </div>
 
-            <p className="text-blue-100/80 text-sm mb-4 leading-relaxed">
-              {project.description}
-            </p>
+              <p className="text-blue-100/80 text-sm mb-4 leading-relaxed">
+                {project.description}
+              </p>
 
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="text-xs px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/20"
-                >
-                  {tag}
+              <div className="flex items-center justify-between">
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="text-xs px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/20"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <span className="text-purple-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                  View details
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-3.5 h-3.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
                 </span>
-              ))}
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+          </Link>
         ))}
       </div>
     </motion.div>

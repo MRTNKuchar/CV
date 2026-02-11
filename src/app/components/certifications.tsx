@@ -8,6 +8,7 @@ interface Certification {
   issuer: string
   icon: ReactNode
   color: string
+  url: string
 }
 
 const container = {
@@ -63,12 +64,20 @@ function CertIcon() {
   )
 }
 
+function ExternalLinkIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+    </svg>
+  )
+}
+
 export function Certifications() {
   const certs: Certification[] = [
-    { name: "CCNA1", issuer: "Cisco", icon: <NetworkIcon />, color: "from-blue-500/20 to-cyan-500/20" },
-    { name: "FCE B2", issuer: "English", icon: <LanguageIcon />, color: "from-amber-500/20 to-orange-500/20" },
-    { name: "Linux Essentials", issuer: "Cisco / NDG", icon: <TerminalIcon />, color: "from-green-500/20 to-emerald-500/20" },
-    { name: "Cybersecurity Essentials", issuer: "Cisco", icon: <ShieldIcon />, color: "from-purple-500/20 to-pink-500/20" },
+    { name: "CCNA1", issuer: "Cisco", icon: <NetworkIcon />, color: "from-blue-500/20 to-cyan-500/20", url: "https://www.netacad.com/courses/networking/ccna-introduction-networks" },
+    { name: "FCE B2", issuer: "English", icon: <LanguageIcon />, color: "from-amber-500/20 to-orange-500/20", url: "https://www.cambridgeenglish.org/exams-and-tests/first/" },
+    { name: "Linux Essentials", issuer: "Cisco / NDG", icon: <TerminalIcon />, color: "from-green-500/20 to-emerald-500/20", url: "https://www.netacad.com/courses/os-it/ndg-linux-essentials" },
+    { name: "Cybersecurity Essentials", issuer: "Cisco", icon: <ShieldIcon />, color: "from-purple-500/20 to-pink-500/20", url: "https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity" },
   ]
 
   return (
@@ -86,25 +95,29 @@ export function Certifications() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {certs.map((cert, index) => (
-          <motion.div
+          <motion.a
             key={index}
+            href={cert.url}
+            target="_blank"
+            rel="noopener noreferrer"
             variants={{
               hidden: { opacity: 0, scale: 0.9, y: 15 },
               show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as const, stiffness: 200, damping: 20 } }
             }}
             whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-            className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-purple-500/50 transition-colors group"
+            className="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-xl border border-white/10 hover:border-purple-500/50 transition-colors group cursor-pointer"
           >
             <div className={`shrink-0 p-2.5 rounded-lg bg-gradient-to-br ${cert.color} text-white group-hover:scale-110 transition-transform`}>
               {cert.icon}
             </div>
-            <div className="min-w-0">
-              <div className="text-white text-sm font-semibold group-hover:text-purple-300 transition-colors truncate">
+            <div className="min-w-0 flex-1">
+              <div className="text-white text-sm font-semibold group-hover:text-purple-300 transition-colors truncate flex items-center gap-2">
                 {cert.name}
+                <ExternalLinkIcon />
               </div>
               <div className="text-blue-300 text-xs truncate">{cert.issuer}</div>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
     </motion.div>
