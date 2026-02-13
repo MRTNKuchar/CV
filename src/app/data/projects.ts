@@ -90,5 +90,31 @@ All tools are integrated to work together — alerts from one system can trigger
       "Created cross-tool incident response workflow for cohesive security operations"
     ],
     tools: ["Proxmox VE", "Zabbix", "Graylog", "Wazuh", "LibreNMS", "Flowmon", "Linux", "SNMP", "Syslog"]
+  },
+  {
+    slug: "wow-private",
+    name: "WoW Private Server",
+    description: "Automated deployment of a World of Warcraft private server using Docker, Ansible, and AzerothCore.",
+    longDescription: `This project provides a complete infrastructure-as-code solution for deploying and managing a World of Warcraft private server based on AzerothCore — an open-source emulator supporting the WotLK 3.3.5a client. The goal was to automate the entire setup process so that a fully functional game server can be deployed reproducibly with minimal manual intervention.
+
+The deployment uses a multi-container Docker Compose architecture with distinct services: a MySQL 8.4 database container managing authentication, world data, and character databases, along with separate authentication and world server containers handling client connections. Automated initialization handles database imports and game asset downloads during first startup.
+
+Ansible playbooks are used for infrastructure provisioning, eliminating manual configuration steps and enabling consistent deployments across different host machines. The playbooks handle everything from installing dependencies and configuring Docker to setting up the game server containers and performing initial database setup.
+
+The project supports multiple network connectivity options — from simple LAN setups with port forwarding to internet-facing deployments using ZeroTier virtual LAN. This flexibility allows the server to be used for local testing or as a persistent multiplayer environment accessible from anywhere.
+
+Database management is covered with backup and restore procedures, and health-checking mechanisms ensure service reliability. The documentation includes detailed setup guides, GM commands reference, troubleshooting tips, and security recommendations for running the server safely.`,
+    tags: ["Docker", "Ansible", "Infrastructure"],
+    status: "completed",
+    highlights: [
+      "Multi-container Docker Compose architecture with MySQL, auth, and world servers",
+      "Ansible playbooks for fully automated and reproducible server provisioning",
+      "Automated database initialization and game asset download pipeline",
+      "Network flexibility with support for LAN, port forwarding, and ZeroTier VPN",
+      "Database backup/restore procedures and container health-checking",
+      "Comprehensive documentation including setup guides and troubleshooting"
+    ],
+    tools: ["Docker", "Docker Compose", "Ansible", "MySQL", "AzerothCore", "ZeroTier", "Linux"],
+    github: "https://github.com/MRTNKuchar/wow-private"
   }
 ]
